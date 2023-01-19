@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OMOnitoring</title>
+    <link rel="stylesheet" href="{% static 'monitor/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'monitor/css/base.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'monitor/css/styles.css' %}" media="screen">
+
+
+    <script src="https://kit.fontawesome.com/c8e2b99a17.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+        {% include 'monitor/navbar.html' %}
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="{% static 'monitor/images/omocar.PNG' %}" class="d-block w-100" style="height: 400px;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'monitor/images/jetson.PNG' %}" class="d-block w-100" style="height: 400px;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'monitor/images/rpi.PNG' %}" class="d-block w-100" style="height: 400px;">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        <div class=" card col-lg-6 mb-3">
+                            <!-- Blog post-->
+                            <img class="card-img-top my-3" src="{% static 'monitor/images/log.jpg' %}" alt="..." style="height: 300px;"  />
+                            <div class="card-body">
+<!--                                <div class="small text-muted">January 1, 2022</div>-->
+                                <h2 class="card-title h4">모니터링 로그</h2>
+                                <p class="card-text">오모로봇 키트의 배터리 잔량, 엔코더 회전수, 펌웨어 버전을<br>시기 별로 모니터링한 정보입니다.</p>
+                                <a class="btn btn-dark" href="monitor/">자세히 보기</a>
+                            </div>
+                        </div>
+                        <div class=" card col-lg-6 mb-3">
+                            <!-- Blog post-->
+                            <img class="card-img-top my-3" src="{% static 'monitor/images/sch.PNG' %}" alt="..." style="height: 300px;"  />
+
+                            <div class="card-body">
+<!--                                <div class="small text-muted">January 1, 2022</div>-->
+                                <h2 class="card-title h4">오모로봇 사양</h2>
+                                <p class="card-text">오모로봇의 제원 및 도면 정보를 상세하게 제공합니다.<br>
+                                    더 자세한 내용을 원하시면 본사로 연락주십시오.
+                                </p>
+                                <a class="btn btn-dark" href="spec/">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav> -->
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">모니터링 기록 검색</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="제목으로 기록 검색" aria-label="제목으로 기록 검색" aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">연락을 기다립니다</div>
+                        <div class="card-body">
+                            <p class="my-2"><a href="tel:070-1234-1212">문의 전화 하기</a></p>
+                            <p class="my-2"><a href="mailto:gookhee@korean.cat">메일 보내기</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'monitor/footer.html' %}
+
+</body>
+</html>
