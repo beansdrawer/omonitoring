@@ -19,9 +19,7 @@
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                     <div class="m-lg-5">
                         <h1 class="display-5 fw-bold mb-5">{{ record }}</h1>
-                        {% if record.comment %}
                         <p class="fs-4 mb-3">{{ record.comment }}</p>
-                        {% endif %}
                     </div>
                     <a class="btn btn-dark btn btn-lg mx-3 my-2" href="{% url 'monitor_delete' record.pk %}">기록 삭제</a>
                     <a class="btn btn-secondary btn btn-lg mx-3 my-2" href="{% url 'monitor' %}">뒤로 가기</a>
