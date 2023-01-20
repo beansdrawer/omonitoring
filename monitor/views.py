@@ -19,7 +19,6 @@ def monitor(request):
         record.led_color = request.POST["led_color"]
         record.firmv = request.POST["firmv"]
         record.encoder = request.POST["encoder"]
-        print(request.POST["comment"])
         record.comment = request.POST["comment"]
         record.save()
         # records = Record.objects.all().order_by('-pk')
