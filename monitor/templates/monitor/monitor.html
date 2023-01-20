@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="{% static 'monitor/css/base.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'monitor/css/styles.css' %}" media="screen">
 
+    <style>
+        .add-card .fa-6x{
+            display: none;
+        }
+        .add-card:hover .fa-5x{
+            display: none;
+        }
+        .add-card:hover .fa-6x{
+            display: initial;
+        }
+    </style>
 
     <script src="https://kit.fontawesome.com/c8e2b99a17.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -20,39 +31,101 @@
 
         {% include 'monitor/navbar.html' %}
 
-
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
-                    <div class="col mb-5 add-card" style="cursor:pointer;">
+                    <div title="기록 추가하기" class="col mb-5 add-card" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#addRecord">
                         <div class="card h-100" style="display: flex; justify-content: center; align-items: center;">
                             <i class="fa-solid fa-plus fa-5x"></i>
+                            <i class="fa-solid fa-plus fa-6x"></i>
                         </div>
                     </div>
+                    {% if records.exists %}
+                    {% for record in records %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                            <div class="card-body px-4 pt-4 pb-0">
                                 <div class="text-center">
                                     <!-- ITEM TITLE -->
-                                    <h5 class="fw-bolder">DUMMY DATA</h5>
+                                    <h5 class="fw-bolder">{{record}}</h5>
                                     <!-- ITEM VALUES -->
-                                    DUMMY DATA
+                                    <div class="p-2">
+                                        <p class="my-3">{{record.firmv}}</p>
+                                        <p class="my-3">BAT : {{record.battery}}</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><span class="btn btn-outline-dark mt-auto">일지 보기</span></div>
+                                <div class="text-center"><a href="{{ record.get_absolute_url }}" class="btn btn-outline-dark mt-auto">상세 보기</a></div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
+                    {% endif %}
 
                 </div>
             </div>
         </section>
 
+
+<div class="modal fade" id="addRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addRecordLabel">기록 추가</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="firmwareVersion" class="form-label">FIRMWARE VERSION</label>
+            <input name="firmv" type="text" class="form-control" id="firmwareVersion" value="r1m_v2.23">
+          </div>
+          <div class="mb-3">
+            <label for="batteryRange" class="form-label">BATTERY <span class="battery_value"></span></label>
+            <input name="battery" type="range" class="form-range" min="0" max="100" step="1" id="batteryRange">
+          </div>
+          <div class="mb-3">
+            <label for="ledColor" class="form-label">LED COLOR</label>
+            <input name="led_color" type="text" class="form-control" id="ledColor" value="orange">
+          </div>
+          <div class="mb-3">
+            <label for="encoder" class="form-label">ENCODER <span class="encoder_value"></span></label>
+            <input value="44" name="encoder" type="range" class="form-range" min="0" max="100" step="1" id="encoder">
+          </div>
+        <div class="form-floating">
+            <textarea name="comment" maxlength="300" class="form-control" placeholder="특이사항을 기록해주세요" id="floatingTextarea2" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">특이사항</label>
+        </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-dark">저장</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(() => {
+        $(".battery_value").text($("input[name='battery']").val() + "%")
+        $(".encoder_value").text($("input[name='encoder']").val())
+    })
+
+    $("input[name='battery']").change(() => {
+        $(".battery_value").text($("input[name='battery']").val() + "%")
+    })
+    $("input[name='encoder']").change(() => {
+        $(".encoder_value").text($("input[name='encoder']").val())
+    })
+
+</script>
 
 </body>
 </html>

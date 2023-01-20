@@ -8,6 +8,9 @@ class Record(models.Model) :
     firmv = models.CharField(null=True, max_length=20)
     encoder = models.CharField(null=True, max_length=20)
 
+    # 걍 추가해봄
+    comment = models.TextField(null=True, max_length=300)
+
     def __str__(self):
         return f'{self.created_at.strftime("%Y/%m/%d %H:%M:%S")}'
 

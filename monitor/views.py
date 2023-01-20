@@ -1,25 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import Record
+from django.shortcuts import get_object_or_404
 
 def index(request):
 
     records = Record.objects.all().order_by('-pk')
 
     return render(request, 'monitor/index.html', {
-        'records' : records,
-        'color': 'red'
+        'records' : records
     })
 
 
 def monitor(request):
 
-    records = Record.objects.all().order_by('-pk')
+    if request.method == "POST" :
+        record = Record()
+        record.battery = request.POST["battery"] + "%"
+        record.led_color = request.POST["led_color"]
+        record.firmv = request.POST["firmv"]
+        record.encoder = request.POST["encoder"]
+        record.save()
+        # records = Record.objects.all().order_by('-pk')
 
-    # return render(request, 'monitor/monitor_prac.html', {
-    return render(request, 'monitor/monitor.html', {
-        'records' : records,
-        'color': 'red'
-    })
+        return HttpResponseRedirect('/monitor/')
+        # return render(request, 'monitor/monitor.html', {
+        #     'records': records
+        # })
+
+    else :
+
+        records = Record.objects.all().order_by('-pk')
+        # return render(request, 'monitor/monitor_prac.html', {
+        return render(request, 'monitor/monitor.html', {
+            'records' : records
+        })
 
 def monitor_detail(request, pk):
 
@@ -28,12 +42,18 @@ def monitor_detail(request, pk):
         'record': record
     })
 
+def monitor_delete(request, pk):
+    delRecord = get_object_or_404(Record, pk=pk)
+    delRecord.delete()
+    records = Record.objects.all().order_by('-pk')
+    return redirect('/monitor', {
+        'records' : records
+    })
+
 def spec(request):
     records = Record.objects.all().order_by('-pk')
-
     return render(request, 'monitor/spec.html', {
-        'records' : records,
-        'color': 'red'
+        'records' : records
     })
 
 
